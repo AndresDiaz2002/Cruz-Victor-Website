@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diaz Concrete – Victor Diaz</title>
+
+  <!-- Google Fonts: Bebas Neue = big bold headings, Barlow = body text -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+  <style>
+
+    /* ── COLOR VARIABLES ──────────────────────────────────────
+       CSS variables let you define a color once and reuse it
+       everywhere. If you want to change orange, just edit here. */
+    :root {
+      --black:   #0d0d0d;
+      --dark:    #141414;
+      --card:    #1a1a1a;
+      --border:  #2c2c2c;
+      --orange:  #e85d04;
+      --orange2: #ff6b1a;
+      --white:   #f2ede8;
+      --muted:   #888;
+    }
+
+    /* ── RESET ─────────────────────────────────────────────────
+       Removes default browser spacing so everything looks the
+       same across Chrome, Firefox, Safari, etc. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(13,13,13,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      transition: padding 0.3s;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; }
+    .logo-diamond {
+      width: 38px; height: 38px; background: var(--orange);
+      transform: rotate(45deg); display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .logo-diamond-inner { width: 18px; height: 18px; background: var(--dark); }
+    .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 3px; }
+    .logo-text span { color: var(--orange); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-cta {
+      background: var(--orange); color: #fff; border: none;
+      padding: 10px 26px; cursor: pointer;
+      font-family: 'Barlow', sans-serif; font-weight: 700;
+      font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+    }
+    .nav-cta:hover { background: var(--orange2); transform: translateY(-1px); }
+
+    /* ── HERO SECTION ───────────────────────────────────────── */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px 60px 80px; position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(232,93,4,0.1) 0%, transparent 55%),
+        repeating-linear-gradient(-45deg, transparent, transparent 50px,
+          rgba(255,255,255,0.013) 50px, rgba(255,255,255,0.013) 51px);
+    }
+    .hero-glow {
+      position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(232,93,4,0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; max-width: 780px; }
+    .hero-eyebrow {
+      font-size: 0.76rem; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--orange);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
+    }
+    .hero-eyebrow::before { content:''; width: 40px; height: 2px; background: var(--orange); display: block; }
+
+    /* clamp(min, preferred, max) = responsive font size */
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9vw, 8.5rem);
+      line-height: 0.92; letter-spacing: 2px; margin-bottom: 28px;
+    }
+    h1 em { color: var(--orange); font-style: normal; }
+    .hero-sub { font-size: 1.05rem; color: #aaa; line-height: 1.75; max-width: 500px; margin-bottom: 40px; }
+    .hero-services-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+    .tag {
+      border: 1px solid var(--border); color: var(--muted);
+      padding: 6px 16px; font-size: 0.76rem; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+    }
+    .tag.hot { border-color: rgba(232,93,4,0.5); color: var(--orange); }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: #fff; border: none;
+      padding: 16px 38px; cursor: pointer;
+      font-family: 'Barlow', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    }
+    .btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--white);
+      padding: 16px 38px; border: 1px solid var(--border); cursor: pointer;
+      font-family: 'Barlow', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s; text-decoration: none;
+      display: inline-flex; align-items: center;
+    }
+    .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+    .hero-stats {
+      display: flex; gap: 50px; margin-top: 56px;
+      padding-top: 40px; border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--orange); line-height: 1; }
+    .stat-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-top: 4px; }
+
+    /* ── SHARED SECTION STYLES ──────────────────────────────── */
+    section { padding: 100px 60px; }
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+    }
+    h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 2px; line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-sub { color: var(--muted); font-size: 0.97rem; line-height: 1.75; max-width: 520px; margin-bottom: 56px; }
+
+    /* ── SERVICES SECTION ───────────────────────────────────── */
+    #services { background: var(--dark); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2px; }
+    .service-card {
+      background: var(--card); padding: 38px 30px;
+      border-top: 3px solid transparent;
+      transition: border-color 0.3s, transform 0.3s; position: relative; overflow: hidden;
+    }
+    /* ::after creates a fake element used for the hover glow effect */
+    .service-card::after {
+      content:''; position: absolute; bottom:0; left:0; right:0; height:0;
+      background: linear-gradient(to top, rgba(232,93,4,0.07), transparent);
+      transition: height 0.3s;
+    }
+    .service-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .service-card:hover::after { height: 100%; }
+    .service-icon { font-size: 2rem; margin-bottom: 18px; display: block; }
+    .service-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.45rem; letter-spacing: 2px; margin-bottom: 10px; }
+    .service-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; }
+
+    /* ── GALLERY SECTION ────────────────────────────────────── */
+    #gallery { background: var(--black); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 270px 270px;
+      gap: 4px;
+    }
+    .gallery-item { position: relative; overflow: hidden; cursor: pointer; background: var(--card); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 10px;
+      background: linear-gradient(135deg, #1c1c1c 0%, #242424 100%);
+      transition: transform 0.5s ease; font-size: 2.2rem;
+    }
+    .gallery-item:hover .gallery-placeholder { transform: scale(1.05); }
+    .glabel { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .gallery-overlay {
+      position: absolute; inset: 0; background: rgba(232,93,4,0.72);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 3px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-note { margin-top: 18px; text-align: center; color: var(--muted); font-size: 0.8rem; font-style: italic; }
+
+    /* ── ABOUT SECTION ──────────────────────────────────────── */
+    #about { background: var(--dark); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual { position: relative; height: 460px; }
+    .about-img-main {
+      width: 82%; height: 100%;
+      background: linear-gradient(160deg, #1e1e1e 0%, #282828 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 6rem;
+    }
+    .about-badge {
+      position: absolute; bottom: 28px; right: 0;
+      background: var(--orange); padding: 22px 26px; text-align: center;
+    }
+    .about-badge .bn { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; line-height: 1; }
+    .about-badge .bt { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+    .about-content p { color: #aaa; line-height: 1.8; margin-bottom: 18px; font-size: 0.96rem; }
+    .values-list { list-style: none; margin: 24px 0 34px; }
+    .values-list li {
+      padding: 9px 0; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.88rem; font-weight: 600; letter-spacing: 0.3px;
+    }
+    .values-list li::before { content: '▸'; color: var(--orange); font-size: 0.8rem; }
+
+    /* ── QUOTE MODAL (popup window) ─────────────────────────── */
+    #quoteModal {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.9); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    #quoteModal.active { display: flex; }
+    .modal-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-top: 3px solid var(--orange);
+      padding: 48px 44px; max-width: 460px; width: 90%;
+      position: relative; animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--white); }
+    .modal-box h3 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; margin-bottom: 8px; }
+    .modal-box .modal-sub { color: var(--muted); font-size: 0.86rem; margin-bottom: 26px; line-height: 1.6; }
+
+    /* ── FORM STYLES (used in modal and contact section) ────── */
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 7px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; background: #111; border: 1px solid var(--border);
+      color: var(--white); padding: 12px 14px;
+      font-family: 'Barlow', sans-serif; font-size: 0.94rem;
+      outline: none; transition: border-color 0.2s; resize: none;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--orange); }
+    .form-group select option { background: #111; }
+    .form-submit {
+      width: 100%; background: var(--orange); color: #fff; border: none;
+      padding: 15px; cursor: pointer;
+      font-family: 'Barlow', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 2px; text-transform: uppercase;
+      margin-top: 6px; transition: background 0.2s;
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 100%, 10px 100%);
+    }
+    .form-submit:hover { background: var(--orange2); }
+    .form-note { font-size: 0.73rem; color: var(--muted); text-align: center; margin-top: 10px; line-height: 1.5; }
+    .success-msg { display: none; text-align: center; padding: 16px 0; }
+    .success-msg .check { font-size: 3rem; margin-bottom: 10px; }
+    .success-msg h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; color: var(--orange); margin-bottom: 8px; }
+    .success-msg p { color: var(--muted); font-size: 0.88rem; }
+
+    /* ── CONTACT SECTION ────────────────────────────────────── */
+    #contact { background: var(--black); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
+    .contact-info p { color: var(--muted); line-height: 1.7; margin-bottom: 38px; font-size: 0.95rem; }
+    .contact-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 26px; padding-bottom: 26px; border-bottom: 1px solid var(--border);
+    }
+    .contact-item:last-of-type { border-bottom: none; }
+    .contact-icon {
+      width: 44px; height: 44px; background: rgba(232,93,4,0.1);
+      border: 1px solid rgba(232,93,4,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-item h4 { font-size: 0.7rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .contact-item p { color: var(--white); font-size: 0.94rem; margin: 0; border: none; padding: 0; }
+    .contact-item a { color: var(--orange); text-decoration: none; }
+    .contact-item a:hover { text-decoration: underline; }
+    .free-estimate-badge {
+      background: rgba(232,93,4,0.1); border: 1px solid rgba(232,93,4,0.3);
+      padding: 16px 20px; display: flex; align-items: center; gap: 12px; margin-top: 10px;
+    }
+    .free-estimate-badge span { font-size: 1.4rem; }
+    .free-estimate-badge p { color: var(--orange); font-weight: 700; font-size: 0.88rem; letter-spacing: 1px; text-transform: uppercase; margin: 0; border: none; padding: 0; }
+    .contact-form-wrap {
+      background: var(--card); border: 1px solid var(--border);
+      border-top: 3px solid var(--orange); padding: 42px 38px;
+    }
+    .contact-form-wrap h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 26px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: #070707; padding: 38px 60px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 3px; }
+    .footer-logo span { color: var(--orange); }
+    footer p { color: var(--muted); font-size: 0.8rem; }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--orange); }
+
+    /* ── SCROLL REVEAL ANIMATION ────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE (mobile friendly) ──────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 22px; }
+      .nav-links { display: none; }
+      section { padding: 65px 22px; }
+      #hero { padding: 95px 22px 60px; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 38px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-row: span 1; }
+      .gallery-placeholder { min-height: 160px; }
+      footer { flex-direction: column; text-align: center; padding: 28px 22px; }
+      .two-col { grid-template-columns: 1fr; }
+      .hero-stats { gap: 26px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ──────────────────────────────────────────────
+       position: fixed means it stays at the top as you scroll.
+       The JS at the bottom shrinks the padding on scroll. -->
+  <nav id="navbar">
+    <div class="nav-logo">
+      <div class="logo-diamond"><div class="logo-diamond-inner"></div></div>
+      <div class="logo-text">DIAZ <span>CONCRETE</span></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#gallery">Our Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <!-- onclick calls the openQuote() function in the JS below -->
+    <button class="nav-cta" onclick="openQuote()">Free Estimate</button>
+  </nav>
+
+  <!-- ── HERO SECTION ────────────────────────────────────────
+       This is the big first thing people see when they land. -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Victor Diaz — Concrete & Stone Specialist</div>
+      <h1>QUALITY<br><em>WORK.</em><br>EVERY TIME.</h1>
+      <p class="hero-sub">Concrete, marble, granite, and more — built right the first time. Serving the Phoenix area with pride and precision.</p>
+      <!-- Tags are the little pill labels under the subtitle -->
+      <div class="hero-services-tags">
+        <span class="tag hot">Driveways</span>
+        <span class="tag hot">Sidewalks</span>
+        <span class="tag">Marble & Granite</span>
+        <span class="tag">Footings</span>
+        <span class="tag">& More</span>
+      </div>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="openQuote()">Get a Free Estimate</button>
+        <a href="#gallery" class="btn-ghost">See Our Work</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Free Estimates</div>
+        </div>
+        <div>
+          <div class="stat-num">AZ</div>
+          <div class="stat-label">Phoenix Area</div>
+        </div>
+        <div>
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Customer Rated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES SECTION ────────────────────────────────────
+       Each service-card is one box in the grid. -->
+  <section id="services">
+    <div class="section-label">What We Do</div>
+    <h2>OUR SERVICES</h2>
+    <p class="section-sub">From concrete driveways to marble countertops — we handle it all with skill and care.</p>
+    <div class="services-grid reveal">
+
+      <div class="service-card">
+        <span class="service-icon">🚗</span>
+        <h3>Driveways</h3>
+        <p>New installations and replacements. Clean, durable driveways built to hold up to years of use and Arizona heat.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🚶</span>
+        <h3>Sidewalks</h3>
+        <p>Smooth, level sidewalks for residential and commercial properties. Done right and built to code.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🏗️</span>
+        <h3>Footings</h3>
+        <p>Structural footings for additions, fences, walls, and new construction. Solid foundations you can count on.</p>
+      </div>
+
+      <!-- Marble & Granite replaces Concrete Slabs -->
+      <div class="service-card">
+        <span class="service-icon">💎</span>
+        <h3>Marble & Granite</h3>
+        <p>Countertops, flooring, and custom stone work. Elegant finishes that add lasting value to any space.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🌿</span>
+        <h3>Patios</h3>
+        <p>Outdoor living starts with a great foundation. We build patios that look great and last for decades.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="service-icon">🔧</span>
+        <h3>Repairs & More</h3>
+        <p>Cracked concrete, uneven surfaces, and custom projects. If it involves concrete or stone, we can handle it.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── GALLERY SECTION ─────────────────────────────────────
+       Replace the emoji placeholders with real <img> tags
+       when you have photos. Example:
+       <img src="driveway1.jpg" alt="Driveway" style="width:100%; height:100%; object-fit:cover;" /> -->
+  <section id="gallery">
+    <div class="section-label">Our Work</div>
+    <h2>RECENT PROJECTS</h2>
+    <p class="section-sub">Add real photos of Victor's completed jobs here — nothing sells better than showing your actual work.</p>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🚗<span class="glabel">Featured Driveway</span></div>
+        <div class="gallery-overlay">VIEW PROJECT</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🚶<span class="glabel">Sidewalk Install</span></div>
+        <div class="gallery-overlay">VIEW PROJECT</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">💎<span class="glabel">Marble & Granite</span></div>
+        <div class="gallery-overlay">VIEW PROJECT</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🌿<span class="glabel">Patio Pour</span></div>
+        <div class="gallery-overlay">VIEW PROJECT</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">🏗️<span class="glabel">Footing Work</span></div>
+        <div class="gallery-overlay">VIEW PROJECT</div>
+      </div>
+    </div>
+    <p class="gallery-note">💡 Replace each box above with an &lt;img&gt; tag to show Victor's real project photos.</p>
+  </section>
+
+  <!-- ── ABOUT SECTION ───────────────────────────────────────
+       "reveal" class makes it fade in when you scroll to it. -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-img-main">🧱</div>
+        <div class="about-badge">
+          <div class="bn">FREE</div>
+          <div class="bt">Estimates</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <div class="section-label">About Victor</div>
+        <h2>BUILT ON TRUST & HARD WORK.</h2>
+        <p>My name is Victor Diaz and I've built my reputation one job at a time. I take pride in every driveway, sidewalk, and stone installation — because your property deserves quality work, not shortcuts.</p>
+        <p>As the owner, I personally oversee every project. When you hire Diaz Concrete, you're working directly with me from start to finish. No middlemen, no surprises.</p>
+        <ul class="values-list">
+          <li>Free estimates — always</li>
+          <li>Transparent, upfront pricing</li>
+          <li>Owner on every job site</li>
+          <li>Concrete, marble & granite work</li>
+          <li>Proudly serving the Phoenix area</li>
+        </ul>
+        <button class="btn-primary" onclick="openQuote()">Get Your Free Estimate</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT SECTION ─────────────────────────────────────
+       href="tel:" makes the phone number clickable on mobile.
+       href="mailto:" opens the email app when clicked. -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="section-label">Contact</div>
+        <h2>LET'S GET STARTED</h2>
+        <p>Ready for a quote or have questions? Reach out to Victor directly — fast response guaranteed.</p>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <h4>Phone</h4>
+            <p><a href="tel:4802500024">480-250-0024</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <h4>Email</h4>
+            <p><a href="mailto:victor_diaz18@live.com">victor_diaz18@live.com</a></p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <h4>Service Area</h4>
+            <p>Phoenix, AZ & Surrounding Areas</p>
+          </div>
+        </div>
+        <div class="free-estimate-badge">
+          <span>✅</span>
+          <p>All estimates are completely free — no obligation</p>
+        </div>
+      </div>
+      <div class="contact-form-wrap reveal">
+        <h3>SEND A MESSAGE</h3>
+        <div class="two-col">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Doe" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="(480) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Project Type</label>
+          <select>
+            <option>Driveway</option>
+            <option>Sidewalk</option>
+            <option>Footing</option>
+            <option>Marble & Granite</option>
+            <option>Patio</option>
+            <option>Repair</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell Us About Your Project</label>
+          <textarea rows="4" placeholder="Size, location, any details you have..."></textarea>
+        </div>
+        <button class="form-submit">Send Message →</button>
+        <p class="form-note">Victor will get back to you quickly to schedule your free estimate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────
+       Simple bottom bar — "Work" link removed as requested. -->
+  <footer>
+    <div class="footer-logo">DIAZ <span>CONCRETE</span></div>
+    <p>© 2026 Diaz Concrete — Victor Diaz. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>
+
+  <!-- ── QUOTE MODAL (popup) ─────────────────────────────────
+       Hidden by default. Opens when any "Get a Quote" button
+       is clicked. The JS functions below control it. -->
+  <div id="quoteModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeQuote()">✕</button>
+      <div id="quoteForm">
+        <h3>FREE ESTIMATE</h3>
+        <p class="modal-sub">Enter your info and Victor will text you back to schedule a free on-site estimate.</p>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="qName" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="qPhone" placeholder="(480) 000-0000" />
+        </div>
+        <div class="form-group">
+          <label>Project Type</label>
+          <select id="qType">
+            <option>Driveway</option>
+            <option>Sidewalk</option>
+            <option>Footing</option>
+            <option>Marble & Granite</option>
+            <option>Patio</option>
+            <option>Repair</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Brief Description</label>
+          <textarea id="qDesc" rows="3" placeholder="What do you need done?"></textarea>
+        </div>
+        <button class="form-submit" onclick="submitQuote()">Request Free Estimate →</button>
+        <p class="form-note">📱 Victor will text you back at the number you provide.</p>
+      </div>
+      <!-- This success message swaps in after the form is submitted -->
+      <div class="success-msg" id="quoteSuccess">
+        <div class="check">✅</div>
+        <h4>REQUEST SENT!</h4>
+        <p>Victor will text you back shortly to schedule your free estimate. Thanks for reaching out!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── JAVASCRIPT ───────────────────────────────────────────
+       Three things happen here:
+       1. Quote modal open / close / submit
+       2. Scroll reveal (sections fade in as you scroll down)
+       3. Navbar shrinks slightly when you scroll past 60px -->
+  <script>
+
+    // Opens the quote popup
+    function openQuote() {
+      document.getElementById('quoteModal').classList.add('active');
+      document.body.style.overflow = 'hidden'; // stops page scrolling behind modal
+    }
+
+    // Closes the quote popup
+    function closeQuote() {
+      document.getElementById('quoteModal').classList.remove('active');
+      document.body.style.overflow = '';
+      // Reset form back to visible after modal closes
+      setTimeout(() => {
+        document.getElementById('quoteForm').style.display = 'block';
+        document.getElementById('quoteSuccess').style.display = 'none';
+      }, 300);
+    }
+
+    // Runs when user clicks "Request Free Estimate"
+    function submitQuote() {
+      const name = document.getElementById('qName').value.trim();
+      const phone = document.getElementById('qPhone').value.trim();
+      if (!name || !phone) {
+        alert('Please enter your name and phone number.');
+        return;
+      }
+      // Hide the form, show the thank you message
+      document.getElementById('quoteForm').style.display = 'none';
+      document.getElementById('quoteSuccess').style.display = 'block';
+    }
+
+    // Close modal if user clicks the dark backdrop behind it
+    document.getElementById('quoteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeQuote();
+    });
+
+    // Scroll reveal: watches each .reveal element and adds
+    // the "visible" class when it enters the screen
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Shrinks navbar padding after scrolling 60px down
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').style.padding =
+        window.scrollY > 60 ? '11px 60px' : '18px 60px';
+    });
+
+  </script>
+
+</body>
+</html>
